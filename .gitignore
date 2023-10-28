@@ -9,7 +9,7 @@
 /dataSources/
 /dataSources.local.xml
 
-./support/docker/sports-league-webapp/postgres-data/**/**
+/support/docker/sports-league-webapp/postgres-data/**/**
 
 .gradle
 **/build/

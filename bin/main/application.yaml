@@ -1,0 +1,22 @@
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://dev-ejevck3pow6sohuw.us.auth0.com/
+      client:
+        registration:
+          auth0:
+            client-id: YmUN50SkwQFQ4MQmiQQ6VRlgsENJqSek
+            client-secret: p8U1SdGEbyhmcrbw7dibGdaobpgrWCXfCxbwujxSdWTvKuhvgoyod9EDjoqVjIq2
+            scope:
+              - openid
+              - profile
+              - email
+        provider:
+          auth0:
+            issuer-uri: https://dev-ejevck3pow6sohuw.us.auth0.com/
+
+logging:
+  level:
+    org.springframework.security: TRACE

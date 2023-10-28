@@ -1,0 +1,49 @@
+spring:
+  application:
+    name: sports-league-webapp
+    version: 1.0.0
+  datasource:
+    url: jdbc:postgresql://localhost:5431/sports-league
+    username: sports-league
+    password: sports-league
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  sql:
+    init:
+      mode: always
+      data-locations: classpath:/db/data.sql
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: override with env
+      client:
+        registration:
+          auth0:
+            client-id: override with env
+            client-secret: override with env
+            scope:
+              - openid
+              - profile
+              - email
+        provider:
+          auth0:
+            issuer-uri: override with env
+
+server:
+  port: 8080
+  servlet:
+    context-path: /api/v1
+
+springdoc:
+  api-docs:
+    resolve-schema-properties: true
+    path: /docs
+  swagger-ui:
+    path: /swagger-ui.html
