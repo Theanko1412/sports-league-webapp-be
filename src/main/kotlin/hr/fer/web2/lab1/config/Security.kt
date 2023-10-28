@@ -27,7 +27,10 @@ class Security {
     private val issuerUri: String? = null
 
     @Value("\${spring.security.cors.allowed-origins}")
-    private val allowedOrigins: List<String> = emptyList()
+    lateinit var allowedOriginsStr: String
+
+    val allowedOrigins: List<String>
+        get() = allowedOriginsStr.split(",")
 
     @Bean
     fun jwtDecoder(): JwtDecoder {
