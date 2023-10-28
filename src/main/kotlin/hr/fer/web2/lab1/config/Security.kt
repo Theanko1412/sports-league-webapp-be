@@ -62,6 +62,7 @@ class Security {
             }
             .authorizeHttpRequests {
                 it.requestMatchers(HttpMethod.GET).permitAll()
+                it.requestMatchers(HttpMethod.OPTIONS).permitAll()
                 it.anyRequest().authenticated()
             }
             .oauth2Login { }
