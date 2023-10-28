@@ -26,6 +26,9 @@ class Security {
     @Value("\${spring.security.oauth2.resourceserver.jwt.issuer-uri}")
     private val issuerUri: String? = null
 
+    @Value("\${spring.security.cors.allowed-origins}")
+    private val allowedOrigins: List<String> = emptyList()
+
     @Bean
     fun jwtDecoder(): JwtDecoder {
         val jwtDecoder: NimbusJwtDecoder = JwtDecoders.fromIssuerLocation(issuerUri)
@@ -38,7 +41,7 @@ class Security {
     @Bean
     fun corsConfigurationSource(): CorsConfigurationSource {
         val configuration = CorsConfiguration()
-        configuration.allowedOrigins = listOf("http://localhost:3000", "https://sports-league.commanderkowalski.uk")
+        configuration.allowedOrigins = allowedOrigins
         configuration.allowedMethods = listOf("*")
         configuration.allowedHeaders = listOf("*")
         configuration.exposedHeaders = listOf("Authorization")
