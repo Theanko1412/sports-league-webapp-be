@@ -2,6 +2,7 @@ package hr.fer.web2.lab1.model.dao
 
 import hr.fer.web2.lab1.model.dto.LeagueDTO
 import hr.fer.web2.lab1.model.dto.LeagueTableDTO
+import jakarta.persistence.CascadeType
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
@@ -28,11 +29,14 @@ class LeagueDAO(
     @get:Column(name = "league_name", nullable = false, unique = true)
     open var name: String? = null,
 
-    @get:ManyToOne
-    @get:JoinColumn(name = "league_sport", nullable = false)
+    @get:ManyToOne(
+        targetEntity = SportDAO::class,
+        cascade = [CascadeType.PERSIST, CascadeType.MERGE],
+    )
+    @get:JoinColumn(name = "league_sport")
     open var sport: SportDAO? = null,
 
-    @get:Column(name = "league_country")
+    @get:Column(name = "league_teams")
     @get:OneToMany(
         targetEntity = TeamDAO::class,
         cascade = [jakarta.persistence.CascadeType.ALL],

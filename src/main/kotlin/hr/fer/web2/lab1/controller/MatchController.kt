@@ -10,6 +10,9 @@ import hr.fer.web2.lab1.service.MatchService
 import hr.fer.web2.lab1.service.TeamService
 import java.net.URI
 import org.springframework.http.ResponseEntity
+import org.springframework.security.access.AccessDeniedException
+import org.springframework.security.core.annotation.AuthenticationPrincipal
+import org.springframework.security.oauth2.jwt.Jwt
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PatchMapping
@@ -55,9 +58,11 @@ class MatchController(
     }
 
     @PatchMapping("/{id}")
-    fun updateMatch(@PathVariable id: String, @RequestBody match: MatchDTO): MatchDTO {
+    fun updateMatch(@PathVariable id: String, @RequestBody match: MatchDTO, @AuthenticationPrincipal jwt: Jwt): MatchDTO {
         val existingMatch = matchService.getMatchById(id) ?: throw IllegalArgumentException("Match with id $id does not exist")
+        if(jwt.subject != existingMatch.admin) throw AccessDeniedException("Only admin that created match can update it")
 
+        //todo move to function
         var previousScoreHome = 0
         var previousScoreAway = 0
 
@@ -113,7 +118,9 @@ class MatchController(
 
 
     @DeleteMapping("/{id}")
-    fun deleteMatch(@PathVariable id: String): MatchDTO? {
+    fun deleteMatch(@PathVariable id: String, @AuthenticationPrincipal jwt: Jwt): MatchDTO? {
+        val existingMatch = matchService.getMatchById(id) ?: throw IllegalArgumentException("Match with id $id does not exist")
+        if(jwt.subject != existingMatch.admin) throw AccessDeniedException("Only admin that created match can update it")
         return matchService.deleteMatch(id)?.toDTO()
     }
 

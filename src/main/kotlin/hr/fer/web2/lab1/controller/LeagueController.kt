@@ -13,6 +13,7 @@ import hr.fer.web2.lab1.service.TeamService
 import hr.fer.web2.lab1.utils.isUUID
 import java.net.URI
 import org.springframework.http.ResponseEntity
+import org.springframework.security.access.AccessDeniedException
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.security.oauth2.jwt.Jwt
 import org.springframework.web.bind.annotation.DeleteMapping
@@ -78,7 +79,13 @@ class LeagueController(
         require(jwt.subject != null) { "Admin id must be provided" }
         val sport = parseSport(league)
         val teams = parseTeams(league)
+
         val leagueDAO = league.toDAO()
+
+        for(team in teams!!) {
+            team.league = leagueDAO
+        }
+
         leagueDAO.admin = jwt.subject
         leagueDAO.sport = sport
         leagueDAO.teams = teams
@@ -88,13 +95,27 @@ class LeagueController(
     }
 
     @PatchMapping("/{id}")
-    fun updateLeague(@PathVariable id: String, @RequestBody league: LeagueDTO): LeagueDTO {
+    fun updateLeague(@PathVariable id: String, @RequestBody league: LeagueDTO, @AuthenticationPrincipal jwt: Jwt): LeagueDTO {
         require(id == league.id) { "Id in path and body must be the same" }
+        if(jwt.subject != league.admin) throw AccessDeniedException("Only admin that created league can update it")
         return leagueService.updateLeague(league.toDAO()).toDTO()
     }
 
     @DeleteMapping("/{id}")
-    fun deleteLeague(@PathVariable id: String): LeagueDTO? {
+    fun deleteLeague(@PathVariable id: String, @AuthenticationPrincipal jwt: Jwt): LeagueDTO? {
+        val existingLeague = leagueService.getLeagueById(id) ?: throw IllegalArgumentException("League with id $id does not exist")
+        if(jwt.subject != existingLeague.admin) throw AccessDeniedException("Only admin that created league can update it")
+
+        val sport = existingLeague.sport
+        sport?.leagues = sport?.leagues?.filter { it.id != id }
+
+        if (sport != null) {
+            sportService.updateSport(sport)
+        }
+
+        existingLeague.sport = null
+        leagueService.updateLeague(existingLeague)
+
         return leagueService.deleteLeague(id)?.toDTO()
     }
 

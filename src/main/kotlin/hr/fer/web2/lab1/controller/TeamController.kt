@@ -13,6 +13,7 @@ import hr.fer.web2.lab1.service.SportService
 import hr.fer.web2.lab1.service.TeamService
 import hr.fer.web2.lab1.utils.isUUID
 import java.net.URI
+import org.springframework.security.access.AccessDeniedException
 import org.springframework.http.ResponseEntity
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.security.oauth2.jwt.Jwt
@@ -72,12 +73,15 @@ class TeamController(
     }
 
     @PatchMapping("/{id}")
-    fun updateTeam(@PathVariable id: String, @RequestBody team: TeamDTO): TeamDTO {
+    fun updateTeam(@PathVariable id: String, @RequestBody team: TeamDTO, @AuthenticationPrincipal jwt: Jwt): TeamDTO {
+        if(jwt.subject != team.admin) throw AccessDeniedException("Only admin that created team can update it")
         return teamService.updateTeam(team.toDAO()).toDTO()
     }
 
     @DeleteMapping("/{id}")
-    fun deleteTeam(@PathVariable id: String): TeamDTO? {
+    fun deleteTeam(@PathVariable id: String, @AuthenticationPrincipal jwt: Jwt): TeamDTO? {
+        val existingTeam = teamService.getTeamById(id) ?: throw IllegalArgumentException("Team with id $id does not exist")
+        if(jwt.subject != existingTeam.admin) throw AccessDeniedException("Only admin that created team can update it")
         return teamService.deleteTeam(id)?.toDTO()
     }
 

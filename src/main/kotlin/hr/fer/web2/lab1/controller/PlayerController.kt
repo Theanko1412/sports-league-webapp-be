@@ -11,7 +11,10 @@ import hr.fer.web2.lab1.service.PlayerService
 import hr.fer.web2.lab1.service.SportService
 import hr.fer.web2.lab1.service.TeamService
 import java.net.URI
+import org.springframework.security.access.AccessDeniedException
 import org.springframework.http.ResponseEntity
+import org.springframework.security.core.annotation.AuthenticationPrincipal
+import org.springframework.security.oauth2.jwt.Jwt
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PatchMapping
@@ -64,12 +67,15 @@ class PlayerController(
     }
 
     @PatchMapping("/{id}")
-    fun updatePlayer(@PathVariable id: String, @RequestBody player: PlayerDTO): PlayerDTO {
+    fun updatePlayer(@PathVariable id: String, @RequestBody player: PlayerDTO, @AuthenticationPrincipal jwt: Jwt): PlayerDTO {
+        if(jwt.subject != player.admin) throw AccessDeniedException("Only admin that created player can update it")
         return playerService.updatePlayer(player.toDAO()).toDTO()
     }
 
     @DeleteMapping("/{id}")
-    fun deletePlayer(@PathVariable id: String): PlayerDTO? {
+    fun deletePlayer(@PathVariable id: String, @AuthenticationPrincipal jwt: Jwt): PlayerDTO? {
+        val existingPlayer = playerService.getPlayerById(id) ?: throw IllegalArgumentException("Player with id $id does not exist")
+        if(jwt.subject != existingPlayer.admin) throw AccessDeniedException("Only admin that created player can update it")
         return playerService.deletePlayer(id)?.toDTO()
     }
 

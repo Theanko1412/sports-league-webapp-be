@@ -13,7 +13,7 @@ class ScheduleServiceImpl(
     private val scheduleRepository: ScheduleRepository
 ) : ScheduleService {
     override fun generateMatches(schedule: ScheduleDAO): ScheduleDAO {
-        val teams = schedule.league?.teams?.map { it.name!! } ?: return schedule // Or throw an exception if needed.
+        val teams = schedule.league?.teams?.map { it.name!! } ?: return schedule
         val initialDate = LocalDateTime.now().plusDays(10L)
             .withHour(21)
             .withMinute(0)
@@ -80,7 +80,7 @@ class ScheduleServiceImpl(
         val n = teams.size
         val schedule = mutableListOf<List<Pair<String, String>>>()
 
-        var currentTeams = teams.toMutableList()
+        val currentTeams = teams.toMutableList()
 
         for (round in 0..<n - 1) {
             val matches = mutableListOf<Pair<String, String>>()
@@ -91,13 +91,12 @@ class ScheduleServiceImpl(
             }
             schedule.add(matches)
 
-            val first = currentTeams[0]
-            val remaining = currentTeams.subList(1, n - 1)
-            val last = currentTeams[n - 1]
-            currentTeams = (listOf(first) + remaining + listOf(last)).toMutableList()
+            val last = currentTeams.removeAt(n - 1)
+            currentTeams.add(1, last)
         }
 
         return schedule
     }
+
 
 }

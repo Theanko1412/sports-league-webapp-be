@@ -41,7 +41,7 @@ class MatchDAO(
 
     @get:ManyToOne(
         targetEntity = LeagueDAO::class,
-        cascade = [jakarta.persistence.CascadeType.ALL],
+        cascade = [jakarta.persistence.CascadeType.PERSIST, jakarta.persistence.CascadeType.MERGE],
     )
     @get:JoinColumn(name = "match_league", nullable = false)
     open var league: LeagueDAO? = null,

@@ -9,6 +9,7 @@ import hr.fer.web2.lab1.service.LeagueService
 import hr.fer.web2.lab1.service.MatchService
 import hr.fer.web2.lab1.service.ScheduleService
 import java.net.URI
+import org.springframework.security.access.AccessDeniedException
 import org.springframework.http.ResponseEntity
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.security.oauth2.jwt.Jwt
@@ -51,6 +52,7 @@ class ScheduleController(
         require(jwt.subject != null) { "Admin id must be provided" }
         val league = parseLeague(schedule)
         val scheduleDAO = schedule.toDAO()
+        league.schedule = scheduleDAO
         scheduleDAO.league = league
         scheduleDAO.league!!.schedule = scheduleDAO
         scheduleDAO.admin = jwt.subject
@@ -60,12 +62,25 @@ class ScheduleController(
     }
 
     @PatchMapping("/{id}")
-    fun updatePlayer(@PathVariable id: String, @RequestBody player: ScheduleDAO): ScheduleDTO {
-        return scheduleService.updateSchedule(player).toDTO()
+    fun updateSchedule(@PathVariable id: String, @RequestBody schedule: ScheduleDAO, @AuthenticationPrincipal jwt: Jwt): ScheduleDTO {
+        if(jwt.subject != schedule.admin) throw AccessDeniedException("Only admin that created schedule can update it")
+        return scheduleService.updateSchedule(schedule).toDTO()
     }
 
     @DeleteMapping("/{id}")
-    fun deletePlayer(@PathVariable id: String): ScheduleDTO? {
+    fun deleteSchedule(@PathVariable id: String, @AuthenticationPrincipal jwt: Jwt): ScheduleDTO? {
+        val existingSchedule = scheduleService.getScheduleById(id) ?: throw IllegalArgumentException("Schedule with id $id does not exist")
+        if(jwt.subject != existingSchedule.admin) throw AccessDeniedException("Only admin that created schedule can update it")
+        val existingLeague = existingSchedule.league
+        if(existingLeague != null) {
+            existingLeague.schedule = null
+            existingSchedule.league = null
+            leagueService.updateLeague(existingLeague)
+            scheduleService.updateSchedule(existingSchedule)
+        }
+        for(match in existingSchedule.matches!!) {
+            matchService.deleteMatch(match.id!!)
+        }
         return scheduleService.deleteSchedule(id)?.toDTO()
     }
 

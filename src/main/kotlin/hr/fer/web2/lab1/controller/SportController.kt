@@ -9,6 +9,7 @@ import hr.fer.web2.lab1.service.LeagueService
 import hr.fer.web2.lab1.service.SportService
 import hr.fer.web2.lab1.utils.isUUID
 import java.net.URI
+import org.springframework.security.access.AccessDeniedException
 import org.springframework.http.ResponseEntity
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.security.oauth2.jwt.Jwt
@@ -60,13 +61,16 @@ class SportController(
     }
 
     @PatchMapping("/{id}")
-    fun updateSport(@PathVariable id: String, @RequestBody sport: SportDTO) : SportDTO {
+    fun updateSport(@PathVariable id: String, @RequestBody sport: SportDTO, @AuthenticationPrincipal jwt: Jwt) : SportDTO {
         require(id == sport.id) { "Id in path and body must be the same" }
+        if(jwt.subject != sport.admin) throw AccessDeniedException("Only admin that created sport can update it")
         return sportService.updateSport(sport.toDAO()).toDTO()
     }
 
     @DeleteMapping("/{id}")
-    fun deleteSport(@PathVariable id: String) : SportDTO? {
+    fun deleteSport(@PathVariable id: String, @AuthenticationPrincipal jwt: Jwt) : SportDTO? {
+        val existingSport = sportService.getSportById(id) ?: throw IllegalArgumentException("Sport with id $id does not exist")
+        if(jwt.subject != existingSport.admin) throw AccessDeniedException("Only admin that created sport can update it")
         return sportService.deleteSport(id)?.toDTO()
     }
 

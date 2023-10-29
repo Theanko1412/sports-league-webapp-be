@@ -35,7 +35,7 @@ class ScheduleDAO(
         targetEntity = LeagueDAO::class,
         cascade = [jakarta.persistence.CascadeType.PERSIST, jakarta.persistence.CascadeType.MERGE],
     )
-    @get:JoinColumn(name = "schedule_league", nullable = false)
+    @get:JoinColumn(name = "schedule_league")
     open var  league: LeagueDAO? = null,
 
     @get:Column(name = "schedule_admin", nullable = false)

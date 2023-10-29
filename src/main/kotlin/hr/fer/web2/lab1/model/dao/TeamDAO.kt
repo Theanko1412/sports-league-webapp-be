@@ -27,7 +27,7 @@ class TeamDAO(
     open var  name: String? = null,
 
     @get:ManyToOne
-    @get:JoinColumn(name = "team_league", nullable = false)
+    @get:JoinColumn(name = "team_league")
     open var  league: LeagueDAO? = null,
 
     @get:ManyToOne

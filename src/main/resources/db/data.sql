@@ -12,23 +12,23 @@ INSERT INTO sport (sport_id, sport_name, sport_admin, sport_win_points, sport_dr
 
 
 -- Sample data for the League table
-INSERT INTO league (league_id, league_name, league_sport, league_admin) VALUES
-  ('1b76a8c6-4f0d-4be2-b431-00509fb9be9d', 'Premier League', '1b76a8c6-4f0d-4be2-b431-00509fb9be9d', 'auth0|653c25b9398960f19a6d8e6a'),
-  ('ef5a4ad9-45e7-4ed6-bc8a-89c58392a6be', 'NBA', 'ef5a4ad9-45e7-4ed6-bc8a-89c58392a6be', 'auth0|653c25b9398960f19a6d8e6a'),
-  ('30b4c0a1-cc03-4d0c-8df4-57057d40d99e', 'MLB', '30b4c0a1-cc03-4d0c-8df4-57057d40d99e', 'auth0|653c25b9398960f19a6d8e6a'),
-  ('ad3b4e22-1f0a-4b18-a4cd-62f712f08645', 'Six Nations', 'ad3b4e22-1f0a-4b18-a4cd-62f712f08645', 'auth0|653c25b9398960f19a6d8e6a'),
-  ('a021dc1e-7c8d-4717-aafc-9885290b15a6', 'IPL', 'a021dc1e-7c8d-4717-aafc-9885290b15a6', 'auth0|653c25b9398960f19a6d8e6a'),
-  ('40a1a183-f098-4cfc-9f44-075c6ad7d72b', 'NHL', '40a1a183-f098-4cfc-9f44-075c6ad7d72b', 'auth0|653c25b9398960f19a6d8e6a'),
-  ('b2074758-9e8d-4b1c-b43c-19093b635903', 'Volleyball League', 'b2074758-9e8d-4b1c-b43c-19093b635903', 'auth0|653c25b9398960f19a6d8e6a'),
-  ('09b6c90e-ec84-4864-93b7-bdd7988bf777', 'Tennis League', '09b6c90e-ec84-4864-93b7-bdd7988bf777', 'auth0|653c25b9398960f19a6d8e6a'),
-  ('c8a4b5ec-cde9-4a43-9ed1-9718c6d9e569', 'Handball League', 'c8a4b5ec-cde9-4a43-9ed1-9718c6d9e569', 'auth0|653c25b9398960f19a6d8e6a');
+INSERT INTO league (league_id, league_name, league_schedule, league_sport, league_admin) VALUES
+  ('1b76a8c6-4f0d-4be2-b431-00509fb9be9d', 'Premier League', null, '1b76a8c6-4f0d-4be2-b431-00509fb9be9d', 'auth0|653c25b9398960f19a6d8e6a'),
+  ('ef5a4ad9-45e7-4ed6-bc8a-89c58392a6be', 'NBA', null, 'ef5a4ad9-45e7-4ed6-bc8a-89c58392a6be', 'auth0|653c25b9398960f19a6d8e6a'),
+  ('30b4c0a1-cc03-4d0c-8df4-57057d40d99e', 'MLB', null, '30b4c0a1-cc03-4d0c-8df4-57057d40d99e', 'auth0|653c25b9398960f19a6d8e6a'),
+  ('ad3b4e22-1f0a-4b18-a4cd-62f712f08645', 'Six Nations', null, 'ad3b4e22-1f0a-4b18-a4cd-62f712f08645', 'auth0|653c25b9398960f19a6d8e6a'),
+  ('a021dc1e-7c8d-4717-aafc-9885290b15a6', 'IPL', null, 'a021dc1e-7c8d-4717-aafc-9885290b15a6', 'auth0|653c25b9398960f19a6d8e6a'),
+  ('40a1a183-f098-4cfc-9f44-075c6ad7d72b', 'NHL', null, '40a1a183-f098-4cfc-9f44-075c6ad7d72b', 'auth0|653c25b9398960f19a6d8e6a'),
+  ('b2074758-9e8d-4b1c-b43c-19093b635903', 'Volleyball League', null, 'b2074758-9e8d-4b1c-b43c-19093b635903', 'auth0|653c25b9398960f19a6d8e6a'),
+  ('09b6c90e-ec84-4864-93b7-bdd7988bf777', 'Tennis League', null, '09b6c90e-ec84-4864-93b7-bdd7988bf777', 'auth0|653c25b9398960f19a6d8e6a'),
+  ('c8a4b5ec-cde9-4a43-9ed1-9718c6d9e569', 'Handball League', null, 'c8a4b5ec-cde9-4a43-9ed1-9718c6d9e569', 'auth0|653c25b9398960f19a6d8e6a');
 
 -- Sample data for the Team table
 INSERT INTO team (team_id, team_name, team_league, team_sport, team_admin, team_position, team_points) VALUES
-  ('1b76a8c6-4f0d-4be2-b431-00509fb9be9d', 'Manchester United', '1b76a8c6-4f0d-4be2-b431-00509fb9be9d', '1b76a8c6-4f0d-4be2-b431-00509fb9be9d', 'auth0|653c25b9398960f19a6d8e6a', 1, 3),
-  ('e4b4df8d-97aa-47f9-9313-d5d8c58c5aa4', 'Liverpool', '1b76a8c6-4f0d-4be2-b431-00509fb9be9d', '1b76a8c6-4f0d-4be2-b431-00509fb9be9d', 'auth0|653c25b9398960f19a6d8e6a', null, 0),
-  ('41b13c22-ef43-4d8a-aab2-fa05e897c285', 'Arsenal', '1b76a8c6-4f0d-4be2-b431-00509fb9be9d', '1b76a8c6-4f0d-4be2-b431-00509fb9be9d', 'auth0|653c25b9398960f19a6d8e6a', null, 0),
-  ('2e4a9c63-7a57-4ebc-a0e0-1a67651a70e9', 'Manchester City', '1b76a8c6-4f0d-4be2-b431-00509fb9be9d', '1b76a8c6-4f0d-4be2-b431-00509fb9be9d', 'auth0|653c25b9398960f19a6d8e6a', null, 0),
+  ('1b76a8c6-4f0d-4be2-b431-00509fb9be9d', 'Manchester United', '1b76a8c6-4f0d-4be2-b431-00509fb9be9d', '1b76a8c6-4f0d-4be2-b431-00509fb9be9d', 'auth0|653c25b9398960f19a6d8e6a', 3, 0),
+  ('e4b4df8d-97aa-47f9-9313-d5d8c58c5aa4', 'Liverpool', '1b76a8c6-4f0d-4be2-b431-00509fb9be9d', '1b76a8c6-4f0d-4be2-b431-00509fb9be9d', 'auth0|653c25b9398960f19a6d8e6a', 1, 3),
+  ('41b13c22-ef43-4d8a-aab2-fa05e897c285', 'Arsenal', '1b76a8c6-4f0d-4be2-b431-00509fb9be9d', '1b76a8c6-4f0d-4be2-b431-00509fb9be9d', 'auth0|653c25b9398960f19a6d8e6a', 4, 0),
+  ('2e4a9c63-7a57-4ebc-a0e0-1a67651a70e9', 'Manchester City', '1b76a8c6-4f0d-4be2-b431-00509fb9be9d', '1b76a8c6-4f0d-4be2-b431-00509fb9be9d', 'auth0|653c25b9398960f19a6d8e6a', 2, 3),
   ('ef5a4ad9-45e7-4ed6-bc8a-89c58392a6be', 'Los Angeles Lakers', 'ef5a4ad9-45e7-4ed6-bc8a-89c58392a6be', 'ef5a4ad9-45e7-4ed6-bc8a-89c58392a6be', 'auth0|653c25b9398960f19a6d8e6a', null, 0),
   ('833e176f-2e0c-4eae-a2ce-6e0e36f3ebf9', 'Boston Celtics', 'ef5a4ad9-45e7-4ed6-bc8a-89c58392a6be', 'ef5a4ad9-45e7-4ed6-bc8a-89c58392a6be', 'auth0|653c25b9398960f19a6d8e6a', null, 0),
   ('a3c93b20-78d6-45e0-a2d9-d10a5729a5f4', 'Toronto Raptors', 'ef5a4ad9-45e7-4ed6-bc8a-89c58392a6be', 'ef5a4ad9-45e7-4ed6-bc8a-89c58392a6be', 'auth0|653c25b9398960f19a6d8e6a', null, 0),
@@ -60,7 +60,13 @@ INSERT INTO team (team_id, team_name, team_league, team_sport, team_admin, team_
   ('c8a4b5ec-cde9-4a43-9ed1-9718c6d9e569', 'Paris Saint-Germain', 'c8a4b5ec-cde9-4a43-9ed1-9718c6d9e569', 'c8a4b5ec-cde9-4a43-9ed1-9718c6d9e569', 'auth0|653c25b9398960f19a6d8e6a', null, 0),
   ('759abf6c-13df-4b2a-82c3-2a9f291e6197', 'Nice', 'c8a4b5ec-cde9-4a43-9ed1-9718c6d9e569', 'c8a4b5ec-cde9-4a43-9ed1-9718c6d9e569', 'auth0|653c25b9398960f19a6d8e6a', null, 0),
   ('75da2857-dfa5-46ca-bf2a-9c407efc4a77', 'Monaco', 'c8a4b5ec-cde9-4a43-9ed1-9718c6d9e569', 'c8a4b5ec-cde9-4a43-9ed1-9718c6d9e569', 'auth0|653c25b9398960f19a6d8e6a', null, 0),
-  ('7ae71768-c332-493b-b2bb-330de4a783bb', 'Lille', 'c8a4b5ec-cde9-4a43-9ed1-9718c6d9e569', 'c8a4b5ec-cde9-4a43-9ed1-9718c6d9e569', 'auth0|653c25b9398960f19a6d8e6a', null, 0);
+  ('7ae71768-c332-493b-b2bb-330de4a783bb', 'Lille', 'c8a4b5ec-cde9-4a43-9ed1-9718c6d9e569', 'c8a4b5ec-cde9-4a43-9ed1-9718c6d9e569', 'auth0|653c25b9398960f19a6d8e6a', null, 0),
+  ('0d4f77e1-a089-4b72-8a54-ffe304b32f1d', 'Dinamo', null, '1b76a8c6-4f0d-4be2-b431-00509fb9be9d', 'auth0|653c25b9398960f19a6d8e6a', null, 0),
+  ('1c53994e-2bc1-42ac-b874-6f0b68b17644', 'Hajduk', null, '1b76a8c6-4f0d-4be2-b431-00509fb9be9d', 'auth0|653c25b9398960f19a6d8e6a', null, 0),
+  ('2dccc623-d70d-4d36-956a-dab882dd15c2', 'Rijeka', null, '1b76a8c6-4f0d-4be2-b431-00509fb9be9d', 'auth0|653c25b9398960f19a6d8e6a', null, 0),
+  ('3cf1854a-e8df-4e97-8d5d-dca5a7a96f4f', 'Istra', null, '1b76a8c6-4f0d-4be2-b431-00509fb9be9d', 'auth0|653c25b9398960f19a6d8e6a', null, 0),
+  ('4f75ae81-dabc-49e7-9d34-15503a889f45', 'Osijek', null, '1b76a8c6-4f0d-4be2-b431-00509fb9be9d', 'auth0|653c25b9398960f19a6d8e6a', null, 0),
+  ('5ae0f123-c15f-424d-b769-872e047fb62b', 'Gorica', null, '1b76a8c6-4f0d-4be2-b431-00509fb9be9d', 'auth0|653c25b9398960f19a6d8e6a', null, 0);
 
 -- Sample data for the Player table
 INSERT INTO player (player_id, player_name, player_surname, player_age, player_height, player_weight, player_nationality, player_team, player_league, player_sport, player_admin) VALUES
@@ -75,11 +81,17 @@ INSERT INTO player (player_id, player_name, player_surname, player_age, player_h
   ('c8a4b5ec-cde9-4a43-9ed1-9718c6d9e569', 'Neymar', 'Jr', 29, 175, 68, 'Brazilian', 'c8a4b5ec-cde9-4a43-9ed1-9718c6d9e569', 'c8a4b5ec-cde9-4a43-9ed1-9718c6d9e569', 'c8a4b5ec-cde9-4a43-9ed1-9718c6d9e569', 'auth0|653c25b9398960f19a6d8e6a');
 -- Sample data for the Schedule table
 INSERT INTO schedule (schedule_id, schedule_league, schedule_admin) VALUES
-  ('1b76a8c6-4f0d-4be2-b431-00509fb9be9d', '1b76a8c6-4f0d-4be2-b431-00509fb9be9d', 'auth0|653c25b9398960f19a6d8e6a');
+  ('6f882d93-62d1-4b04-afc9-674c30fb3668', '1b76a8c6-4f0d-4be2-b431-00509fb9be9d', 'auth0|653c25b9398960f19a6d8e6a');
 
--- Sample data for the Match table
+UPDATE league SET league_schedule = '6f882d93-62d1-4b04-afc9-674c30fb3668' WHERE league_id = '1b76a8c6-4f0d-4be2-b431-00509fb9be9d';
+-- -- Sample data for the Match table
 INSERT INTO match (match_id, match_home_team, match_away_team, match_home_team_score, match_away_team_score, match_date, match_league, match_admin, schedule_id) VALUES
-  ('1b76a8c6-4f0d-4be2-b431-00509fb9be9d', 'Manchester United', 'Liverpool', 2, 1, '2023-10-26 15:00:00', '1b76a8c6-4f0d-4be2-b431-00509fb9be9d', 'auth0|653c25b9398960f19a6d8e6a', '1b76a8c6-4f0d-4be2-b431-00509fb9be9d');
+  ('c634f762-3c59-4f19-b63f-b73359a7c316', 'Manchester City', 'Manchester United', NULL, NULL, '2023-11-13 21:00:00', '1b76a8c6-4f0d-4be2-b431-00509fb9be9d', 'auth0|653c25b9398960f19a6d8e6a', '6f882d93-62d1-4b04-afc9-674c30fb3668'),
+  ('b6f15649-5c0a-442d-9b67-dd1b2defe507', 'Arsenal', 'Liverpool', NULL, NULL, '2023-11-13 21:00:00', '1b76a8c6-4f0d-4be2-b431-00509fb9be9d', 'auth0|653c25b9398960f19a6d8e6a', '6f882d93-62d1-4b04-afc9-674c30fb3668'),
+  ('e6b07871-6c75-4998-a3e6-47e9f63c5b9e', 'Arsenal', 'Manchester United', NULL, NULL, '2023-11-18 21:00:00', '1b76a8c6-4f0d-4be2-b431-00509fb9be9d', 'auth0|653c25b9398960f19a6d8e6a', '6f882d93-62d1-4b04-afc9-674c30fb3668'),
+  ('e5eb4dd7-f698-4779-a9cd-872fc136d311', 'Liverpool', 'Manchester City', NULL, NULL, '2023-11-18 21:00:00', '1b76a8c6-4f0d-4be2-b431-00509fb9be9d', 'auth0|653c25b9398960f19a6d8e6a', '6f882d93-62d1-4b04-afc9-674c30fb3668'),
+  ('339bd914-f77c-4b34-8e30-4c76efc28214', 'Liverpool', 'Manchester United', 4, 3, '2023-11-08 21:00:00', '1b76a8c6-4f0d-4be2-b431-00509fb9be9d', 'auth0|653c25b9398960f19a6d8e6a', '6f882d93-62d1-4b04-afc9-674c30fb3668'),
+  ('8dd67f3e-02b5-4ec8-a11a-f6d7dc76306d', 'Manchester City', 'Arsenal', 2, 1, '2023-11-08 21:00:00', '1b76a8c6-4f0d-4be2-b431-00509fb9be9d', 'auth0|653c25b9398960f19a6d8e6a', '6f882d93-62d1-4b04-afc9-674c30fb3668');
 
 -- Connect leagues and teams
 INSERT INTO league_teams (leaguedao_league_id, teams_team_id) VALUES
