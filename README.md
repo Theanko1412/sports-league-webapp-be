@@ -1,6 +1,7 @@
 # sports-league-webapp-be
 
-[docs](https://sports-league-be.commanderkowalski.uk/api/v1/swagger-ui/index.html)
+[docs](https://sports-league-be.commanderkowalski.uk/api/v1/swagger-ui/index.html) [local](http://localhost:8080/api/v1/swagger-ui.html)
+
 
 simple api with postgres db for adding sports, teams, players, leagues and tracking matches
 
